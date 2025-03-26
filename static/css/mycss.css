@@ -1,504 +1,246 @@
-/* General reset and base styles */
-:root {
-  --primary-color: #1b4b6d;
-  --secondary-color: #ff7f00;
-  --background-color: #f4f4f9;
-  --text-color: #333;
-  --border-radius: 10px;
-  --padding: 10px;
-  --font-family: 'Poppins', sans-serif;
-}
-
+/* Basic Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: var(--font-family);
 }
 
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
 }
 
-/* Navbar styling */
+/* Navigation */
 .navbar {
+  background-color: #1b4b6d;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-color);
-  padding: 1rem 8%;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
 .navbar h1 {
   color: white;
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 20px;
+}
+
+.menu {
+  display: flex;
 }
 
 .menu a {
-  margin: 0 1rem;
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s;
+  margin-left: 15px;
+  font-size: 14px;
 }
 
 .menu a:hover {
-  color: var(--secondary-color);
+  text-decoration: underline;
 }
 
 .navbar-button {
-  background-color: var(--secondary-color);
+  background-color: #ff7f00;
   color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 30px;
-  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 3px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  font-size: 14px;
 }
 
-.navbar-button:hover {
-  background-color: #e67500;
-}
-
-/* Hero section */
+/* Hero Section */
 .kropp-upp {
-  text-align: center;
-  padding: 5rem 8%;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background-color: #1b4b6d;
   color: white;
+  padding: 50px 20px;
+  text-align: center;
 }
 
 .kropp-upp h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: 28px;
+  margin-bottom: 15px;
 }
 
 .kropp-upp p {
-  font-size: 1.2rem;
-  font-weight: 300;
   max-width: 800px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 20px;
+  font-size: 16px;
 }
 
 .kropp-upp a {
   display: inline-block;
-  background-color: var(--secondary-color);
+  background-color: #ff7f00;
   color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
-  font-weight: bold;
+  padding: 8px 20px;
+  border-radius: 3px;
   text-decoration: none;
-  transition: background-color 0.3s;
 }
 
-.kropp-upp a:hover {
-  background-color: #e67500;
-}
-
-/* Image section */
-.image-section img {
-  width: 100vw;
-  height: 400px;
-  object-fit: cover;
-}
-
-.kropp-mitten {
+/* Content Sections */
+.kropp-mitten, .kropp-nere {
+  padding: 40px 20px;
   text-align: center;
-  padding: 4rem 8%;
 }
 
-.kropp-mitten h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.kropp-mitten h2, .kropp-nere h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
-.kropp-mitten p {
-  font-size: 1.2rem;
-  font-weight: 300;
+.kropp-mitten p, .kropp-nere p {
   max-width: 800px;
-  margin: 0 auto 2rem auto;
+  margin: 0 auto 20px;
 }
 
 .kropp-nere {
   background-color: #b07c62;
-  text-align: center;
-  padding: 4rem 8%;
+  color: white;
 }
 
-.kropp-nere h2 {
-  color: white;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.kropp-nere p {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 300;
-  max-width: 800px;
-  margin: 0 auto 2rem auto;
+.image-section img {
+  width: 100%;
+  height: auto;
 }
 
 /* Footer */
 footer {
-  text-align: center;
-  background-color: var(--primary-color);
+  background-color: #1b4b6d;
   color: white;
-  padding: 2rem 0;
-  margin-top: 3rem;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
 }
 
-footer p {
-  font-size: 1rem;
-}
-
-/*------------------------ Inloggning ---------------------------------------*/
+/* Login Form */
 .Inlog_kroppen {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  padding: 20px;
 }
 
 .login-section {
   background: white;
-  border-radius: var(--border-radius);
+  border: 1px solid #ddd;
   padding: 20px;
-  width: 300px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .login-section h2 {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 15px;
-  color: var(--text-color);
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--padding);
-}
-
-label {
-  font-weight: bold;
-  font-size: 14px;
-  text-align: left;
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-input {
+.login-section input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: var(--border-radius);
-  font-size: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
 }
 
-button {
+.login-section button {
   background: #4caf50;
-  border: none;
-  border-radius: var(--border-radius);
   color: white;
-  padding: var(--padding);
-  font-size: 16px;
+  border: none;
+  padding: 8px;
+  width: 100%;
   cursor: pointer;
-  margin-top: var(--padding);
-  transition: background-color 0.3s;
 }
 
-button:hover {
-  background: #45a049;
-}
-
-/*------------------------ Chat ---------------------------------------*/
-.content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--padding);
-}
-
-.join {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.create-btn {
-  width: 100%;
-}
-
+/* Chat Styles */
 .message-box {
-  border: 2px solid var(--primary-color);
-  border-radius: var(--border-radius);
-  background-color: whitesmoke;
-  height: 88vh;
-  display: flex;
-  flex-direction: column;
-  width: 120vh;
-  align-items: stretch;
+  border: 1px solid #ddd;
+  background: white;
+  height: 500px;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 10px;
 }
 
 .messages {
-  overflow-y: scroll;
-  flex: 1;
-  width: 100%;
+  height: 90%;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
 
 .input {
-  padding: var(--padding);
   display: flex;
 }
 
-h2 {
-  text-align: center;
-}
-h3 {
-  text-align: center;
-}
-
-#message {
+.input input {
   flex: 1;
+  padding: 8px;
 }
 
-.text {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: var(--padding);
-  padding-right: var(--padding);
-}
-
-.muted {
-  font-size: 10px;
-  color: darkgray;
-}
-
-/* Flash Messages */
-.flash-messages {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.flash {
-  padding: 10px 20px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  color: white;
-  font-size: 14px;
-}
-
-.flash.success {
-  background-color: #28a745;
-}
-
-.flash.error {
-  background-color: #dc3545;
-}
-
-/* Rooms tabell */
+/* Tables */
 .Active-Rooms {
-  font-family: Arial, sans-serif;
+  width: 100%;
   max-width: 800px;
   margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Rooms tabell */
-.Active-Rooms h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.Active-Rooms table {
-  width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+}
+
+.Active-Rooms th, .Active-Rooms td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 .Active-Rooms th {
-  background-color: #f8f9fa;
-  color: #333;
-  padding: 12px;
-  text-align: left;
-  font-weight: bold;
-  border-bottom: 2px solid #ddd;
-}
-
-.Active-Rooms td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #555;
-}
-
-.Active-Rooms tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-.Active-Rooms p {
-  text-align: center;
-  color: #777;
-  font-style: italic;
-  margin-top: 20px;
-}
-
-/* Registrering */
-
-.Signup-kroppen{
-  font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 }
-.boxen {
-  background-color: #fff;
+
+/* Registration Form */
+.Signup-kroppen, .Inloggning-kropp {
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
 }
-.boxen h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
+
+.boxen, .inloggning-box {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  max-width: 300px;
+  margin: 0 auto;
 }
-.Registrering {
+
+.boxen h1, .inloggning-box h1 {
+  font-size: 18px;
   margin-bottom: 15px;
-  text-align: left;
 }
-.Registrering label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.Registrering input {
+
+.boxen input, .inloggning-box input {
   width: 100%;
   padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.register-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-.register-button:hover {
-  background-color: #218838;
-}
-.boxen p {
-  margin-top: 15px;
-  font-size: 14px;
-}
-.boxen a {
-  color: #007bff;
-  text-decoration: none;
-}
-.boxen a:hover {
-  text-decoration: underline;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
 }
 
-/* Inloggning */
-.Inloggning-kropp{
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.inloggning-box {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
-}
-.inloggning-box h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-.Inlogga {
-  margin-bottom: 15px;
-  text-align: left;
-}
-.Inlogga label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-.Inlogga input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.Inlogg-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+.register-button, .Inlogg-button {
+  background: #007bff;
+  color: white;
   border: none;
-  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
   cursor: pointer;
-  font-size: 16px;
+  margin-bottom: 10px;
 }
-.Inlogg-button:hover {
-  background-color: #0056b3;
+
+/* Flash Messages */
+.flash {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid transparent;
 }
-.inloggning-box p {
-  margin-top: 15px;
-  font-size: 14px;
+
+.flash.success {
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
 }
-.inloggning-box a {
-  color: #007bff;
-  text-decoration: none;
-}
-.inloggning-box a:hover {
-  text-decoration: underline;
+
+.flash.error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
 }
