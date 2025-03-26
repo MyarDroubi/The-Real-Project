@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% set hide_nav = true %}
+{% block content %}
+
+<div class = "Inloggning-kropp">
+    <div class="inloggning-box">
+        <h1>Logga In</h1>
+        <form method="POST">
+            <div class="Inlogga">
+                <label for="email">E-postadress:</label>
+                <input type="email" id="email" name="email" placeholder="Ange din e-postadress" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Lösenord:</label>
+                <input type="password" id="password" name="password" placeholder="Ange ditt lösenord" required>
+            </div>
+            <button type="submit" class="Inlogg-button">Logga In</button>
+        </form>
+        <p>Har du inget konto? <a href="/signup">Registrera dig här</a>.</p>
+    </div>
+</div>
+
+{% endblock %}

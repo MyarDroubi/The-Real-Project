@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post">
+    <h1>Create room</h1>
+    <div>
+        <label>Name:</label>
+        <input type="text" placeholder="Pick a name!" name="name" value="{{name}}"/>
+        <br>
+        <br>
+        <label>Subject:</label>
+        <input type="text" placeholder="Pick a Subject!" name="subject" value="{{subject}}"/>
+        <br>
+        <br>
+        <button type="submit" name="create" class="create-btn">Create a Room</button>
+    </div>
+    <h1>Join room</h1>
+    <label>Room code:</label>
+    <div class="join">
+        <input type="text" placeholder="Room code" name="code" value="{{code}}"/>
+        <button type="submit" name="join">Join a Room</button>
+    </div>
+    {% if error %}
+    <ul>
+        <li>{{error}}</li>
+    </ul>
+    {% endif %}
+
+    <div class="Active-Rooms">
+        <h1>Active Rooms</h1>
+        {% if rooms %}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Creator</th>
+                        <th>Subject</th>
+                        <th>Room Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room_code, room_data in rooms.items() %}
+                        <tr>
+                            <td>{{ room_data["creator"] }}</td>
+                            <td>{{ room_data["subject"] }}</td>
+                            <td>{{ room_code }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No active rooms available.</p>
+        {% endif %}
+    </div>
+</form>
+<script>
+    var socket = io();
+
+    // Handle room list updates
+    socket.on("rooms_updated", function() {
+        // Refresh the page to show updated rooms
+        window.location.reload();
+    });
+</script>
+<!-- Visa alla aktiva rum -->
+
+{% endblock %}
