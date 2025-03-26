@@ -119,12 +119,12 @@ def om_oss():
 
 @app.route("/index")
 def index():
-  
     print("Session data:", session)
-
     if "user_id" not in session:
         flash("Vänligen logga in.", "error")
         return redirect(url_for("inloggning"))
+    return render_template("Index.html")
+
 
 
 @app.route("/signup", methods=["GET", "POST"])
