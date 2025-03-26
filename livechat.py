@@ -19,22 +19,25 @@ socketio = SocketIO(app,async_mode="eventlet")
 app.config["SECRET_KEY"] = "THISISACODE"
 socketio = SocketIO(app)
 
-# Initialize the bot client
+#Vi hämtar klienten för Huggingface för att prata med AI-boten
 bot_client = InferenceClient(
     provider="novita",
     api_key="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"
 )
 
+
 DATABASE = os.path.join(BASE_DIR, "users.db")
 
-def db_connection():
+#Här vi connectar till databas
+def Databas_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
 
-def init_db():
+#Här vi skapar användare om de inte finns
+def databas_inneholl():
     with app.app_context():
-        db = db_connection()
+        db = Databas_connection()
         db.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,20 +48,23 @@ def init_db():
         db.commit()
         db.close()
 
-init_db()
+databas_inneholl()
 
 rooms = {}
 ROOMS_FILE = os.path.join(BASE_DIR, "rooms.json")
 
+#Här vi sparar rum för att visa de senare
 def Spara_room():
     with open(ROOMS_FILE, "w") as f:
         json.dump(rooms, f)
 
+#För att genererara slumpmässig kod för rum chatten
 def Skapa_kod(length):
     code = "".join(random.choice(ascii_uppercase) for _ in range(length))
     if code not in rooms:
         return code
 
+#Den funktioner används för att kommunicera med AI chatt
 def bot_interaction(room, user_message=None):
     if rooms[room]["members"] == 1:
         if user_message:
@@ -72,7 +78,7 @@ def bot_interaction(room, user_message=None):
                 bot_response = completion.choices[0].message.content
                 final_answer = bot_response.split("</think>")[-1].strip() if "</think>" in bot_response else bot_response
             except Exception as e:
-                print(f"Error in bot interaction: {e}")  # Log the exception
+                print(f"Error in bot interaction: {e}") 
                 final_answer = "I'm having trouble responding right now."
 
         else:
@@ -80,6 +86,7 @@ def bot_interaction(room, user_message=None):
 
         send({"name": "Bot", "message": final_answer}, to=room)
         rooms[room]["messages"].append({"name": "Bot", "message": final_answer})
+
 
 @app.before_request
 def visa_user():
@@ -89,6 +96,7 @@ def visa_user():
     else:
         g.user = None
 
+#Hanterar inloggning sida
 @app.route("/", methods=["GET", "POST"])
 def inloggning():
     if request.method == "POST":
@@ -99,7 +107,7 @@ def inloggning():
             flash("E-postadress och lösenord krävs!", "error")
             return redirect(url_for("inloggning"))
 
-        db = db_connection()
+        db = Databas_connection()
         user = db.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
         db.close()
 
@@ -113,10 +121,12 @@ def inloggning():
         flash("Fel e-postadress eller lösenord!", "error")
     return render_template("Inloggning.html")
 
+#Hanterar Om_oss sida
 @app.route('/om_oss')
 def om_oss():
     return render_template('om_oss.html')
 
+#Hanterar Index/Introduktion sida
 @app.route("/index")
 def index():
     print("Session data:", session)
@@ -126,7 +136,7 @@ def index():
     return render_template("Index.html")
 
 
-
+#Hanterar signup sida 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
@@ -138,7 +148,7 @@ def signup():
         hashed_password = generate_password_hash(password)
 
         try:
-            db = db_connection()
+            db = Databas_connection()
             db.execute("INSERT INTO users (email, password) VALUES (?, ?)", (email, hashed_password))
             db.commit()
             db.close()
@@ -149,12 +159,14 @@ def signup():
 
     return render_template("signup.html")
 
+#Hantera den funktion för att logga ut
 @app.route("/logout")
 def logout():
     session.clear()
     flash("Du har loggat ut.", "success")
     return redirect(url_for("inloggning"))
 
+#Det här för om man lämnar in chat room
 @socketio.on("disconnect")
 def handle_disconnect():
     room = session.get("room")
@@ -163,7 +175,6 @@ def handle_disconnect():
     if room in rooms:
         rooms[room]["members"] -= 1
         
-        # Remove room if empty
         if rooms[room]["members"] <= 0:
             del rooms[room]
             Spara_room()
@@ -171,7 +182,9 @@ def handle_disconnect():
         send({"name": name, "message": "has left the room"}, to=room)
         
     socketio.emit("rooms_updated", broadcast=True)
-    
+
+
+#Hanterar livechatt html för att skapa eller ansluta till ett rum
 @app.route("/livechatt", methods=["POST", "GET"])
 def livechatt():
     if "user_id" not in session:
@@ -192,7 +205,6 @@ def livechatt():
             if not subject.strip():
                 return render_template("livechatt.html", error="Please enter a Subject!", code=code, name=name, subject=subject, rooms=rooms)
             
-            # Generate a new room code
             room = Skapa_kod(4)
             rooms[room] = {"members": 0, "messages": [], "subject": subject, "creator": name}
             Spara_room()
@@ -209,11 +221,12 @@ def livechatt():
             
             session["room"] = code
             session["name"] = name
-            session["subject"] = rooms[code]["subject"]  # Inherit the room's subject
+            session["subject"] = rooms[code]["subject"]
             return redirect(url_for("room"))
 
     return render_template("livechatt.html", rooms=rooms)
 
+#room.html delen för att chatta med AI eller person
 @app.route("/room")
 def room():
     room = session.get("room") 
@@ -223,6 +236,7 @@ def room():
         return redirect(url_for("livechatt"))
     return render_template("room.html", code=room, messages=rooms[room]["messages"], name=name, subject=subject)
 
+#Sköter meddelande som sker
 @socketio.on("message")
 def message(data):
     room = session.get("room")
@@ -234,6 +248,7 @@ def message(data):
         rooms[room]["messages"].append(content)
         bot_interaction(room, user_message=data["data"])
 
+#Jag har skapat det här funktionen för användaren ska ansluta till rätt rum
 @socketio.on("connect")
 def connect(auth):
     room = session.get("room")
@@ -244,6 +259,7 @@ def connect(auth):
         rooms[room]["members"] += 1
         bot_interaction(room)
 
+#Här vi  startar hela appen/webbsida med eventlet som asynkront körsystem
 if __name__ == "__main__":
     eventlet.monkey_patch()
     socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
