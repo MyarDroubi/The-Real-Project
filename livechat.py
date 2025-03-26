@@ -172,8 +172,8 @@ def handle_disconnect():
         
     socketio.emit("rooms_updated", broadcast=True)
     
-@app.route("/home", methods=["POST", "GET"])
-def home():
+@app.route("/livechatt", methods=["POST", "GET"])
+def livechatt():
     if "user_id" not in session:
         flash("Vänligen logga in för att komma åt denna sida.", "error")
         return redirect(url_for("inloggning"))
@@ -186,11 +186,11 @@ def home():
         create_action = 'create' in request.form  
 
         if not name.strip():
-            return render_template("home.html", error="Please enter your name!", code=code, name=name, rooms=rooms)
+            return render_template("livechatt.html", error="Please enter your name!", code=code, name=name, rooms=rooms)
 
         if create_action:
             if not subject.strip():
-                return render_template("home.html", error="Please enter a Subject!", code=code, name=name, subject=subject, rooms=rooms)
+                return render_template("livechatt.html", error="Please enter a Subject!", code=code, name=name, subject=subject, rooms=rooms)
             
             # Generate a new room code
             room = Skapa_kod(4)
@@ -203,16 +203,16 @@ def home():
 
         elif join_action:
             if not code:
-                return render_template("home.html", error="Please enter a room Code", code=code, name=name, rooms=rooms)
+                return render_template("livechatt.html", error="Please enter a room Code", code=code, name=name, rooms=rooms)
             elif code not in rooms:
-                return render_template("home.html", error="Room does not exist", code=code, name=name, rooms=rooms)
+                return render_template("livechatt.html", error="Room does not exist", code=code, name=name, rooms=rooms)
             
             session["room"] = code
             session["name"] = name
             session["subject"] = rooms[code]["subject"]  # Inherit the room's subject
             return redirect(url_for("room"))
 
-    return render_template("home.html", rooms=rooms)
+    return render_template("livechatt.html", rooms=rooms)
 
 @app.route("/room")
 def room():
@@ -220,21 +220,24 @@ def room():
     name = session.get("name")
     subject = session.get("subject")
     if room not in rooms:
-        return redirect(url_for("home"))
+        return redirect(url_for("livechatt"))
     return render_template("room.html", code=room, messages=rooms[room]["messages"], name=name, subject=subject)
 
 @socketio.on("message")
 def message(data):
     room = session.get("room")
+    name = session.get("name")
+    subject = session.get("subject")
     if room in rooms:
-        content = {"name": session.get("name"), "subject": session.get("subject"), "message": data["data"]}
+        content = {"name": name, "subject": subject, "message": data["data"]}
         send(content, to=room)
         rooms[room]["messages"].append(content)
         bot_interaction(room, user_message=data["data"])
 
 @socketio.on("connect")
 def connect(auth):
-    room, name = session.get("room"), session.get("name")
+    room = session.get("room")
+    name = session.get("name")
     if room in rooms:
         join_room(room)
         send({"name": name, "message": "has entered the room"}, to=room)
