@@ -50,12 +50,19 @@ def databas_inneholl():
 
 databas_inneholl()
 
+
+"""
+#Här vissas historik för chatt
+def historik():
+    pass
+"""
+
 rooms = {}
-ROOMS_FILE = os.path.join(BASE_DIR, "rooms.json")
+filerooms = os.path.join(BASE_DIR, "rooms.json")
 
 #Här vi sparar rum för att visa de senare
 def Spara_room():
-    with open(ROOMS_FILE, "w") as f:
+    with open(filerooms, "w") as f:
         json.dump(rooms, f)
 
 #För att genererara slumpmässig kod för rum chatten
