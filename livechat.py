@@ -50,11 +50,11 @@ init_db()
 rooms = {}
 ROOMS_FILE = os.path.join(BASE_DIR, "rooms.json")
 
-def Saverooms():
+def Spara_room():
     with open(ROOMS_FILE, "w") as f:
         json.dump(rooms, f)
 
-def generatekode(length):
+def Skapa_kod(length):
     code = "".join(random.choice(ascii_uppercase) for _ in range(length))
     if code not in rooms:
         return code
@@ -82,7 +82,7 @@ def bot_interaction(room, user_message=None):
         rooms[room]["messages"].append({"name": "Bot", "message": final_answer})
 
 @app.before_request
-def load_user():
+def visa_user():
     user_id = session.get('user_id')
     if user_id is not None:
         g.user = user_id
@@ -126,13 +126,6 @@ def index():
         flash("Vänligen logga in.", "error")
         return redirect(url_for("inloggning"))
 
-    try:
-        return render_template("Index.html")
-    except Exception as e:
-        # Debug: Print the error if rendering fails
-        print(f"Error rendering template: {e}")
-        return "An error occurred while rendering the page.", 500
-
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -173,7 +166,7 @@ def handle_disconnect():
         # Remove room if empty
         if rooms[room]["members"] <= 0:
             del rooms[room]
-            Saverooms()
+            Spara_room()
             
         send({"name": name, "message": "has left the room"}, to=room)
         
@@ -200,9 +193,9 @@ def home():
                 return render_template("home.html", error="Please enter a Subject!", code=code, name=name, subject=subject, rooms=rooms)
             
             # Generate a new room code
-            room = generatekode(4)
+            room = Skapa_kod(4)
             rooms[room] = {"members": 0, "messages": [], "subject": subject, "creator": name}
-            Saverooms()
+            Spara_room()
             session["room"] = room
             session["name"] = name
             session["subject"] = subject
@@ -223,7 +216,9 @@ def home():
 
 @app.route("/room")
 def room():
-    room, name, subject = session.get("room"), session.get("name"), session.get("subject")
+    room = session.get("room") 
+    name = session.get("name")
+    subject = session.get("subject")
     if room not in rooms:
         return redirect(url_for("home"))
     return render_template("room.html", code=room, messages=rooms[room]["messages"], name=name, subject=subject)
