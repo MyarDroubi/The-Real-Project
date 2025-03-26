@@ -1,246 +1,504 @@
-/* Basic Reset */
+/* General reset and base styles */
+:root {
+  --primary-color: #1b4b6d;
+  --secondary-color: #ff7f00;
+  --background-color: #f4f4f9;
+  --text-color: #333;
+  --border-radius: 10px;
+  --padding: 10px;
+  --font-family: 'Poppins', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: var(--font-family);
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
-/* Navigation */
+/* Navbar styling */
 .navbar {
-  background-color: #1b4b6d;
-  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--primary-color);
+  padding: 1rem 8%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .navbar h1 {
   color: white;
-  font-size: 20px;
-}
-
-.menu {
-  display: flex;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
 .menu a {
+  margin: 0 1rem;
   color: white;
   text-decoration: none;
-  margin-left: 15px;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
 }
 
 .menu a:hover {
-  text-decoration: underline;
+  color: var(--secondary-color);
 }
 
 .navbar-button {
-  background-color: #ff7f00;
+  background-color: var(--secondary-color);
   color: white;
-  padding: 5px 15px;
-  border-radius: 3px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: bold;
   text-decoration: none;
-  font-size: 14px;
+  transition: background-color 0.3s;
 }
 
-/* Hero Section */
+.navbar-button:hover {
+  background-color: #e67500;
+}
+
+/* Hero section */
 .kropp-upp {
-  background-color: #1b4b6d;
-  color: white;
-  padding: 50px 20px;
   text-align: center;
+  padding: 5rem 8%;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
 }
 
 .kropp-upp h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .kropp-upp p {
+  font-size: 1.2rem;
+  font-weight: 300;
   max-width: 800px;
-  margin: 0 auto 20px;
-  font-size: 16px;
+  margin: 0 auto 2rem auto;
 }
 
 .kropp-upp a {
   display: inline-block;
-  background-color: #ff7f00;
+  background-color: var(--secondary-color);
   color: white;
-  padding: 8px 20px;
-  border-radius: 3px;
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
   text-decoration: none;
+  transition: background-color 0.3s;
 }
 
-/* Content Sections */
-.kropp-mitten, .kropp-nere {
-  padding: 40px 20px;
+.kropp-upp a:hover {
+  background-color: #e67500;
+}
+
+/* Image section */
+.image-section img {
+  width: 100vw;
+  height: 400px;
+  object-fit: cover;
+}
+
+.kropp-mitten {
   text-align: center;
+  padding: 4rem 8%;
 }
 
-.kropp-mitten h2, .kropp-nere h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
+.kropp-mitten h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.kropp-mitten p, .kropp-nere p {
+.kropp-mitten p {
+  font-size: 1.2rem;
+  font-weight: 300;
   max-width: 800px;
-  margin: 0 auto 20px;
+  margin: 0 auto 2rem auto;
 }
 
 .kropp-nere {
   background-color: #b07c62;
-  color: white;
+  text-align: center;
+  padding: 4rem 8%;
 }
 
-.image-section img {
-  width: 100%;
-  height: auto;
+.kropp-nere h2 {
+  color: white;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.kropp-nere p {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 300;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
 }
 
 /* Footer */
 footer {
-  background-color: #1b4b6d;
-  color: white;
   text-align: center;
-  padding: 20px;
-  margin-top: 30px;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 2rem 0;
+  margin-top: 3rem;
 }
 
-/* Login Form */
+footer p {
+  font-size: 1rem;
+}
+
+/*------------------------ Inloggning ---------------------------------------*/
 .Inlog_kroppen {
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
 }
 
 .login-section {
   background: white;
-  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
   padding: 20px;
-  max-width: 300px;
-  margin: 0 auto;
+  width: 300px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .login-section h2 {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 15px;
+  color: var(--text-color);
 }
 
-.login-section input {
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding);
+}
+
+label {
+  font-weight: bold;
+  font-size: 14px;
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input {
   width: 100%;
   padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 14px;
 }
 
-.login-section button {
+button {
   background: #4caf50;
-  color: white;
   border: none;
-  padding: 8px;
-  width: 100%;
+  border-radius: var(--border-radius);
+  color: white;
+  padding: var(--padding);
+  font-size: 16px;
   cursor: pointer;
+  margin-top: var(--padding);
+  transition: background-color 0.3s;
 }
 
-/* Chat Styles */
-.message-box {
-  border: 1px solid #ddd;
-  background: white;
-  height: 500px;
+button:hover {
+  background: #45a049;
+}
+
+/*------------------------ Chat ---------------------------------------*/
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding);
+}
+
+.join {
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 10px;
+}
+
+.create-btn {
+  width: 100%;
+}
+
+.message-box {
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background-color: whitesmoke;
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  width: 120vh;
+  align-items: stretch;
 }
 
 .messages {
-  height: 90%;
-  overflow-y: auto;
-  margin-bottom: 10px;
+  overflow-y: scroll;
+  flex: 1;
+  width: 100%;
 }
 
 .input {
+  padding: var(--padding);
   display: flex;
 }
 
-.input input {
+h2 {
+  text-align: center;
+}
+h3 {
+  text-align: center;
+}
+
+#message {
   flex: 1;
-  padding: 8px;
 }
 
-/* Tables */
-.Active-Rooms {
-  width: 100%;
-  max-width: 800px;
-  margin: 20px auto;
-  border-collapse: collapse;
+.text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
 }
 
-.Active-Rooms th, .Active-Rooms td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.Active-Rooms th {
-  background-color: #f4f4f4;
-}
-
-/* Registration Form */
-.Signup-kroppen, .Inloggning-kropp {
-  padding: 20px;
-}
-
-.boxen, .inloggning-box {
-  background: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-.boxen h1, .inloggning-box h1 {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-.boxen input, .inloggning-box input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-}
-
-.register-button, .Inlogg-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px;
-  width: 100%;
-  cursor: pointer;
-  margin-bottom: 10px;
+.muted {
+  font-size: 10px;
+  color: darkgray;
 }
 
 /* Flash Messages */
+.flash-messages {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
 .flash {
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid transparent;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
 }
 
 .flash.success {
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
-  color: #3c763d;
+  background-color: #28a745;
 }
 
 .flash.error {
-  background-color: #f2dede;
-  border-color: #ebccd1;
-  color: #a94442;
+  background-color: #dc3545;
+}
+
+/* Rooms tabell */
+.Active-Rooms {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Rooms tabell */
+.Active-Rooms h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.Active-Rooms table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.Active-Rooms th {
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+.Active-Rooms td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+}
+
+.Active-Rooms tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.Active-Rooms p {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* Registrering */
+
+.Signup-kroppen{
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.boxen {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+.boxen h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+.Registrering {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.Registrering label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.Registrering input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.register-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.register-button:hover {
+  background-color: #218838;
+}
+.boxen p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+.boxen a {
+  color: #007bff;
+  text-decoration: none;
+}
+.boxen a:hover {
+  text-decoration: underline;
+}
+
+/* Inloggning */
+.Inloggning-kropp{
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.inloggning-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+.inloggning-box h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+.Inlogga {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.Inlogga label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.Inlogga input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.Inlogg-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.Inlogg-button:hover {
+  background-color: #0056b3;
+}
+.inloggning-box p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+.inloggning-box a {
+  color: #007bff;
+  text-decoration: none;
+}
+.inloggning-box a:hover {
+  text-decoration: underline;
 }
