@@ -59,7 +59,7 @@ def Spara_historik():
     name = session.get("name")
 
     
-#Här vissas historik för chatt
+#Funktion som vissas historik för chatt
 def Visa_historik():
     pass
 """
@@ -67,7 +67,7 @@ def Visa_historik():
 rooms = {}
 filerooms = os.path.join(BASE_DIR, "rooms.json")
 
-#Här vi sparar rum för att visa de senare
+#Den funktionen för att spara rum för att visa de senare
 def Spara_room():
     with open(filerooms, "w") as f:
         json.dump(rooms, f)
@@ -78,8 +78,8 @@ def Skapa_kod(length):
     if code not in rooms:
         return code
 
-#Den funktioner används för att kommunicera med AI chatt
-def bot_interaction(room, user_message=None):
+#Den funktioner används för  kommunicera med AI chatt
+def Bot_connection(room, user_message=None):
     if rooms[room]["members"] == 1:
         if user_message:
             messages = [{"role": "user", "content": user_message}]
@@ -138,6 +138,9 @@ def inloggning():
 #Hanterar Om_oss sida
 @app.route('/om_oss')
 def om_oss():
+    if "user_id" not in session:
+        flash("Vänligen logga in.", "error")
+        return redirect(url_for("inloggning"))
     return render_template('om_oss.html')
 
 #Hanterar Index/Introduktion sida
@@ -260,7 +263,7 @@ def message(data):
         content = {"name": name, "subject": subject, "message": data["data"]}
         send(content, to=room)
         rooms[room]["messages"].append(content)
-        bot_interaction(room, user_message=data["data"])
+        Bot_connection(room, user_message=data["data"])
 
 #Jag har skapat det här funktionen för användaren ska ansluta till rätt rum
 @socketio.on("connect")
@@ -271,7 +274,7 @@ def connect(auth):
         join_room(room)
         send({"name": name, "message": "has entered the room"}, to=room)
         rooms[room]["members"] += 1
-        bot_interaction(room)
+        Bot_connection(room)
 
 #Här vi  startar hela appen/webbsida med eventlet som asynkront körsystem
 if __name__ == "__main__":
