@@ -76,21 +76,6 @@ body {
   margin: 0 auto 2rem auto;
 }
 
-.kropp-upp a {
-  display: inline-block;
-  background-color: #ff7f00;
-  color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.kropp-upp a:hover {
-  background-color: #e67500;
-}
-
 .image-section img {
   width: 100vw;
   height: 400px;
