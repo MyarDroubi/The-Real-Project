@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mycss.css') }}"/>
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navigation">
         <h1>Livechat</h1>
         <div class="menu">
             <a href="{{ url_for('index') }}">Introduktion</a>
             <a href="{{ url_for('livechatt') }}">Livechat</a>
             <a href="{{ url_for('om_oss') }}">Om oss</a>
         </div>
-        <a href="{{ url_for('logout') }}" class="navbar-button">Logga ut</a>
+        <a href="{{ url_for('logout') }}" class="navigation-button">Logga ut</a>
     </nav>
 
     <section class="kropp-upp">
