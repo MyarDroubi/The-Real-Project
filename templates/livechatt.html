@@ -55,12 +55,9 @@
 <script>
     var socket = io();
 
-    // Handle room list updates
     socket.on("rooms_updated", function() {
-        // Refresh the page to show updated rooms
         window.location.reload();
     });
 </script>
-<!-- Visa alla aktiva rum -->
 
 {% endblock %}

@@ -7,7 +7,6 @@
     <div class="messages" id="messages"></div>
     <div class="input">
         <input type="text" row="3" placeholder="Message" name="Message" id="message"/>
-        <!-- Remove onclick and add an ID -->
         <button type="button" name="send" id="send-btn">Send</button>
     </div>
 </div>
@@ -16,7 +15,6 @@
 
     const messages = document.getElementById("messages");
 
-    // Function to create messages
     const createMessage = (name, msg) => {
         const content = `
             <div class="text">
@@ -27,7 +25,6 @@
         messages.innerHTML += content;
     };
 
-    // Function to send messages
     const sendMessage = () => {
         const messageInput = document.getElementById("message");
         if (messageInput.value.trim() === "") return;
@@ -35,10 +32,8 @@
         messageInput.value = "";
     };
 
-    // Add event listener to the button
     document.getElementById("send-btn").addEventListener("click", sendMessage);
 
-    // Handle incoming messages
     socketio.on("message", (data) => {
         createMessage(data.name, data.message);
     });

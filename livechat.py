@@ -27,7 +27,7 @@ bot_client = InferenceClient(
 )
 
 
-DATABASE = os.path.join(BASE_DIR, "users.db")
+DATABASE = os.path.join(BASE_DIR, "users.databas")
 
 #Här vi connectar till databas
 def Databas_connection():
@@ -38,16 +38,16 @@ def Databas_connection():
 #Här vi skapar användare om de inte finns
 def databas_inneholl():
     with app.app_context():
-        db = Databas_connection()
-        db.execute("""
+        databas = Databas_connection()
+        databas.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 email TEXT UNIQUE NOT NULL,
                 password TEXT NOT NULL
             )
         """)
-        db.commit()
-        db.close()
+        databas.commit()
+        databas.close()
 
 databas_inneholl()
 
@@ -121,9 +121,9 @@ def inloggning():
             flash("E-postadress och lösenord krävs!", "error")
             return redirect(url_for("inloggning"))
 
-        db = Databas_connection()
-        user = db.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
-        db.close()
+        databas = Databas_connection()
+        user = databas.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+        databas.close()
 
         if user and check_password_hash(user["password"], password):
             session["user_id"] = user["id"]
@@ -165,10 +165,10 @@ def signup():
         hashed_password = generate_password_hash(password)
 
         try:
-            db = Databas_connection()
-            db.execute("INSERT INTO users (email, password) VALUES (?, ?)", (email, hashed_password))
-            db.commit()
-            db.close()
+            databas = Databas_connection()
+            databas.execute("INSERT INTO users (email, password) VALUES (?, ?)", (email, hashed_password))
+            databas.commit()
+            databas.close()
             flash("Kontot har skapats! Vänligen logga in.", "success")
             return redirect(url_for("inloggning"))
         except sqlite3.IntegrityError:
@@ -176,7 +176,6 @@ def signup():
 
     return render_template("signup.html")
 
-#Hantera den funktion för att logga ut
 @app.route("/logout")
 def logout():
     session.clear()
@@ -276,7 +275,7 @@ def connect(auth):
         rooms[room]["members"] += 1
         Bot_connection(room)
 
-#Här vi  startar hela appen/webbsida med eventlet som asynkront körsystem
+#Här vi startar hela appen/webbsida med eventlet som asynkront körsystem
 if __name__ == "__main__":
     eventlet.monkey_patch()
     socketio.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
