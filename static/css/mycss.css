@@ -249,18 +249,21 @@ button:hover {
 .message-box {
   border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);
-  background-color: whitesmoke;
-  height: 88vh;
+  background-color: #fff;
+  height: 85vh;
+  width: 90%;
+  max-width: 800px;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
-  width: 120vh;
-  align-items: stretch;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .messages {
-  overflow-y: scroll;
   flex: 1;
-  width: 100%;
+  overflow-y: auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
 }
 
 .input {
@@ -277,20 +280,24 @@ h3 {
 
 #message {
   flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
 }
 
-.text {
+.input {
+  padding: 1rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: var(--padding);
-  padding-right: var(--padding);
+  gap: 0.5rem;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
 }
 
 .muted {
-  font-size: 10px;
-  color: darkgray;
+  font-size: 0.75rem;
+  color: gray;
+  margin-left: 10px;
 }
 
 /* Flash Messages */
