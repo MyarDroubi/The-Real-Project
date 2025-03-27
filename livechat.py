@@ -17,7 +17,8 @@ app = Flask(__name__)
 socketio = SocketIO(app,async_mode="eventlet")
 
 app.config["SECRET_KEY"] = "THISISACODE"
-socketio = SocketIO(app)
+
+#socketio = SocketIO(app)
 
 #Vi hämtar klienten för Huggingface för att prata med AI-boten
 bot_client = InferenceClient(
@@ -52,8 +53,14 @@ databas_inneholl()
 
 
 """
+#Spara historik i databas eller js
+def Spara_historik():
+    room = session.get("room")
+    name = session.get("name")
+
+    
 #Här vissas historik för chatt
-def historik():
+def Visa_historik():
     pass
 """
 

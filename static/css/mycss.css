@@ -22,7 +22,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Navbar styling */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -67,7 +66,6 @@ body {
   background-color: #e67500;
 }
 
-/* Hero section */
 .kropp-upp {
   text-align: center;
   padding: 5rem 8%;
@@ -103,7 +101,6 @@ body {
   background-color: #e67500;
 }
 
-/* Image section */
 .image-section img {
   width: 100vw;
   height: 400px;
@@ -147,7 +144,6 @@ body {
   margin: 0 auto 2rem auto;
 }
 
-/* Footer */
 footer {
   text-align: center;
   background-color: var(--primary-color);
